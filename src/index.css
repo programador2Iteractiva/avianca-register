@@ -1,5 +1,15 @@
+/* ==========================================================================
+   1. SETUP & IMPORTS
+   ========================================================================== */
 @import "tailwindcss";
 
+/* ==========================================================================
+   2. FONT DEFINITIONS (@font-face)
+   ========================================================================== */
+
+/**
+ * P22 Mackinac Family
+ */
 @font-face {
   font-family: "P22Mackinac";
   src: url("../src/fonts/P22Mackinac-Book.otf") format("opentype");
@@ -15,6 +25,9 @@
   font-display: swap;
 }
 
+/**
+ * Red Hat Display Family
+ */
 @font-face {
   font-family: "RedHatDisplay";
   src: url("../src/fonts/RedHatDisplay-Regular.ttf") format("truetype");
@@ -37,6 +50,9 @@
   font-display: swap;
 }
 
+/**
+ * Selecta Family
+ */
 @font-face {
   font-family: "Selecta";
   src: url("../src/fonts/Selecta-Light.otf") format("opentype");
@@ -52,6 +68,9 @@
   font-display: swap;
 }
 
+/* ==========================================================================
+   3. TAILWIND THEME CONFIGURATION (@theme)
+   ========================================================================== */
 @theme {
   --color-primary: #5e0000;
   --color-secondary: #cdbeb0;
@@ -63,11 +82,14 @@
     "Noto Color Emoji";
 }
 
+/* ==========================================================================
+   4. BASE STYLES (@layer base)
+   ========================================================================== */
 @layer base {
   html {
     @apply font-sans antialiased;
   }
-  /* Añade esto para asegurar que el texto normal tenga el peso correcto */
+
   body {
     @apply font-normal;
   }
@@ -77,40 +99,84 @@
   }
 }
 
+/* ==========================================================================
+   5. COMPONENTS & PAGE-SPECIFIC STYLES
+   ========================================================================== */
+
+/* Layout component for a full-screen page */
 .page {
-  @apply flex flex-col  w-full items-center bg-primary;
+  @apply flex flex-col w-full items-center bg-primary;
   min-height: 100dvh;
+}
+
+/* Styles specific to the 'Expectativa' view */
+.expectativa h1 {
+  font-size: 2.5rem;
+  line-height: 2.5rem;
 }
 
 .expectativa p {
   font-size: 1rem;
 }
 
-.expectativa h1 {
-  font-size: 2.5rem;
-  line-height: 2.5rem;
-}
-
 .expectativa .ventanasCerradas {
   width: 50rem;
   height: 15rem;
-  background-image: url("../src/assets/ventanaSola.png");
+  background-image: url("../src/assets/ventanaSolaCerrada.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
+.precarga h1 {
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+}
+
+.precarga p {
+  font-size: 0.rem;
+}
+
+.precarga .ventanasCerradas {
+  width: 50rem;
+  height: 15rem;
+  background-image: url("../src/assets/VentanaSolaAbierta.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE OVERRIDES
+   ========================================================================== */
+
+/* Styles for medium screens and up (768px) */
 @media (min-width: 768px) {
+  .expectativa h1 {
+    font-size: 3rem;
+  }
+
   .expectativa p {
     font-size: 1.5rem;
   }
 
-  .expectativa h1 {
-    font-size: 3.5rem;
-  }
   .expectativa .ventanasCerradas {
     width: 40rem;
     height: 16rem;
     background-image: url("../src/assets/ventanasCerradas.png");
+  }
+
+  .precarga h1 {
+    font-size: 3.5rem;
+  }
+
+  .precarga p {
+    font-size: 1.5rem;
+  }
+
+  .precarga .ventanasCerradas {
+    width: 40rem;
+    height: 16rem;
+    background-image: url("../src/assets/VentanasAbiertas.png");
   }
 }
