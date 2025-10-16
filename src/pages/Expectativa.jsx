@@ -9,7 +9,7 @@ function Expectativa() {
         <img src={logos} alt="Logos de Avianca y colaboradores" />
       </header>
 
-      <main className="w-full flex-1 flex flex-col items-center text-start md:text-center justify-center md:gap-8 gap-2 px-4">
+      <main className="w-full flex-1 flex flex-col items-center text-start md:text-center justify-center md:gap-10 gap-6 px-4">
         <h1>Tu viaje por Latinoamérica empieza aquí</h1>
 
         <div className=" flex justify-center items-center w-full">
