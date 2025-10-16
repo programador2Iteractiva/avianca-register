@@ -1,8 +1,9 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Expectativa from "./pages/Expectativa";
 import Precarga from "./pages/Precarga";
+import Home from "./pages/Home";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/precarga",
     element: <Precarga />,
+  },
+   {
+    path: "/home",
+    element: <Home />,
   },
 ]);
 
