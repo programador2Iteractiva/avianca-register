@@ -289,6 +289,44 @@ main {
   font-family: "P22Mackinac";
 }
 
+.desktop-band {
+  background: #e2d8c7;                   /* beige más cercano al mock */
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.28),     /* sombra marcada inferior */
+    inset 0 8px 10px rgba(255, 255, 255, 0.35); /* brillo superior curvo */
+  position: relative;
+}
+
+/* separadores finos como en la imagen */
+.desktop-band .separator {
+  display: inline-block;
+  width: 1px;
+  height: 22px;
+  margin: 0 10px;
+  background: rgba(0, 0, 0, 0.35);
+  transform: translateY(1px);
+}
+
+/* tipografía y color del link desktop */
+.desktop-link {
+  color: #2c2c2c;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* === Mobile card === */
+.mobile-card {
+  background: rgba(226, 216, 199, 0.92); /* beige translúcido */
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.35);
+}
+
+/* líneas divisorias cortas (no a todo el ancho) como tu mock */
+.mobile-hr {
+  height: 1px;
+  width: 86%;
+  margin-left: 0;          /* alineadas al texto */
+  background: rgba(0, 0, 0, 0.30);
+}
 
 @media (min-width: 768px) {
 
