@@ -1,8 +1,7 @@
-import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Header from "../views/Header";
-import EventCarousel from "../components/EventCarousel";
+import Agenda from "../views/Agenda";
 
 function Home() {
   return (
@@ -10,7 +9,7 @@ function Home() {
       <Navbar />
       <main>
         <Header />
-        <EventCarousel />
+        <Agenda />
       </main>
       <Footer />
     </div>

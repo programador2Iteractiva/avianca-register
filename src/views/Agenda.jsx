@@ -1,7 +1,6 @@
-import React from "react";
 // Importa los componentes y módulos de Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+import { EffectCoverflow, Pagination, Navigation, Autoplay } from "swiper/modules";
 import afterOfficeImg from "../assets/header.png";
 
 // Importa los estilos de Swiper
@@ -13,10 +12,9 @@ import "swiper/css/navigation";
 // Importa íconos para las flechas
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-// Importa la imagen de ejemplo (reemplaza con tus imágenes)
 
-function EventCarousel() {
-  // Puedes mapear un array de datos para generar las tarjetas dinámicamente
+function Agenda() {
+   // Puedes mapear un array de datos para generar las tarjetas dinámicamente
   const events = [
     { id: 1, title: "Brunch", image: afterOfficeImg },
     { id: 2, title: "After Office", image: afterOfficeImg },
@@ -27,7 +25,7 @@ function EventCarousel() {
 
   return (
     <div className="view-container agenta">
-      <h2 >Agenda tu visita</h2>
+      <h2>Agenda tu visita</h2>
       <div className="w-full flex flex-1 bg-[#5e0000] py-12 px-4 rounded-xl">
         <div className="relative max-w-4/5 mx-auto">
           <div className="w-full ">
@@ -35,16 +33,20 @@ function EventCarousel() {
               effect={"coverflow"}
               grabCursor={true}
               centeredSlides={true}
-              loop={false}
+              loop={true}
               slidesPerView={"auto"}
-              coverflowEffect={{
-                rotate: 0, // Sin rotación en las tarjetas laterales
-                stretch: 80, // Sin estiramiento
-                depth: 50, // Profundidad de la perspectiva 3D
-                modifier: 5, // Multiplicador del efecto (juega con este valor)
-                slideShadows: true, // Sin sombras en las tarjetas
+              speed={1200} // Velocidad de la animación
+              autoplay={{
+                delay: 2500, // Tiempo entre cada slide
+                disableOnInteraction: false, // Que no se detenga al hacer click
               }}
-              // Módulos de Paginación y Navegación
+              coverflowEffect={{
+                rotate: 0,
+                stretch: 80,
+                depth: 150,
+                modifier: 2.5,
+                slideShadows: false,
+              }}
               pagination={{
                 el: ".swiper-pagination",
                 clickable: true,
@@ -54,8 +56,8 @@ function EventCarousel() {
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
               }}
-              modules={[EffectCoverflow, Pagination, Navigation]}
-              className="event-carousel" 
+              modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
+              className="event-carousel"
             >
               {events.map((event) => (
                 <SwiperSlide key={event.id}>
@@ -65,7 +67,7 @@ function EventCarousel() {
                       alt={event.title}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0  bg-opacity-40 flex flex-col justify-end items-start p-6">
+                    <div className="absolute inset-0 bg-opacity-40 flex flex-col justify-end items-start p-6">
                       <h3 className="text-4xl">{event.title}</h3>
                       <p className="mt-1 text-sm">
                         El plan perfecto para cerrar el día con estilo.
@@ -95,4 +97,4 @@ function EventCarousel() {
   );
 }
 
-export default EventCarousel;
+export default Agenda
