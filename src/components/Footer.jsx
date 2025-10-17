@@ -1,3 +1,4 @@
+import logosMobile from "../assets/logosMobile.png";
 import logos from "../assets/logos.png";
 import starAlliance from "../assets/starAlliance.png";
 import { FaInstagram, FaTwitter, FaFacebookF } from "react-icons/fa";
@@ -20,7 +21,10 @@ function Footer() {
             className="w-32 md:w-52"
           />
         </div>
-        <div className="w-full h-0.5 my-5 bg-white "></div>
+        <div className="w-full h-0.5 my-5 bg-white md:hidden block "></div>
+        <div className="md:hidden block w-1/2 mt-5">
+          <img src={logosMobile} alt="Logos de Avianca y colaboradores" />
+        </div>
         <div className="flex flex-col md:flex-row gap-5 text-white items-center">
           <div>Siguenos</div>
           <div className="social-icons flex gap-5 items-center">

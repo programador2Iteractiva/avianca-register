@@ -1,15 +1,5 @@
-/* ==========================================================================
-   1. SETUP & IMPORTS
-   ========================================================================== */
 @import "tailwindcss";
 
-/* ==========================================================================
-   2. FONT DEFINITIONS (@font-face)
-   ========================================================================== */
-
-/**
- * P22 Mackinac Family
- */
 @font-face {
   font-family: "P22Mackinac";
   src: url("../src/fonts/P22Mackinac-Book.otf") format("opentype");
@@ -25,9 +15,6 @@
   font-display: swap;
 }
 
-/**
- * Red Hat Display Family
- */
 @font-face {
   font-family: "RedHatDisplay";
   src: url("../src/fonts/RedHatDisplay-Regular.ttf") format("truetype");
@@ -50,9 +37,6 @@
   font-display: swap;
 }
 
-/**
- * Selecta Family
- */
 @font-face {
   font-family: "Selecta";
   src: url("../src/fonts/Selecta-Light.otf") format("opentype");
@@ -68,9 +52,6 @@
   font-display: swap;
 }
 
-/* ==========================================================================
-   3. TAILWIND THEME CONFIGURATION (@theme)
-   ========================================================================== */
 @theme {
   --color-primary: #5e0000;
   --color-secondary: #cdbeb0;
@@ -82,9 +63,6 @@
     "Noto Color Emoji";
 }
 
-/* ==========================================================================
-   4. BASE STYLES (@layer base)
-   ========================================================================== */
 @layer base {
   html {
     @apply font-sans antialiased;
@@ -94,26 +72,22 @@
     @apply font-normal;
   }
 
-  h1 {
+  h1,
+  h2 {
     font-family: "P22Mackinac";
   }
 }
 
-/* ==========================================================================
-   5. COMPONENTS & PAGE-SPECIFIC STYLES
-   ========================================================================== */
-
-/* Layout component for a full-screen page */
 .page {
-  @apply flex flex-col w-full items-center ;
+  @apply flex flex-col w-full items-center;
   min-height: 100dvh;
 }
 
-.expectativa, .precarga {
-  @apply bg-primary
+.expectativa,
+.precarga {
+  @apply bg-primary;
 }
 
-/* Styles specific to the 'Expectativa' view */
 .expectativa h1 {
   font-size: 2.5rem;
   line-height: 2.5rem;
@@ -138,7 +112,7 @@
 }
 
 .precarga p {
-  font-size: 0.rem;
+  font-size: 0rem;
 }
 
 .precarga .ventanasCerradas {
@@ -151,26 +125,67 @@
 }
 
 nav {
-  @apply w-full flex justify-center items-center p-3 bg-primary
-}
-
-nav img {
-  width: 30rem;
+  @apply w-full flex justify-between md:justify-center items-center p-5 bg-primary;
 }
 
 footer {
-  @apply w-full justify-center items-center bg-blue-avianca
+  @apply w-full justify-center items-center bg-blue-avianca p-5;
 }
 
 main {
-  @apply w-full flex-1 flex flex-col items-center text-start md:text-center  gap-6 px-4
+  @apply w-full flex-1 flex flex-col items-center text-start md:text-center  gap-6 px-4;
 }
-/* ==========================================================================
-   6. RESPONSIVE OVERRIDES
-   ========================================================================== */
 
-/* Styles for medium screens and up (768px) */
+.social-icon {
+  @apply bg-white p-2 rounded-full flex justify-center items-center;
+}
+
+.social-icon > * {
+  @apply text-blue-avianca;
+}
+
+.view-container {
+  max-height: 100dvh;
+  @apply w-full rounded-4xl py-5;
+}
+
+.view-container h2 {
+  @apply text-4xl md:text-7xl text-center mb-5
+}
+
+.header-container {
+  background-image: url("../src/assets/mobile/header.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 80dvh;
+  max-height: 90dvh;
+
+  @apply w-full m-5 rounded-2xl md:rounded-4xl text-white flex p-5;
+}
+
+.header-container h1 {
+  @apply leading-8 md:leading-16 text-3xl md:text-7xl;
+}
+
+.header-container h3 {
+  @apply leading-4 md:leading-6 text-start text-sm md:text-2xl;
+}
+
+.header-container p {
+  @apply leading-4 md:leading-5 text-start text-[0.6rem] md:text-[1rem] text-white/70 md:text-white;
+}
+
+.header-container button {
+  font-family: "P22Mackinac";
+  @apply leading-5 text-start text-primary bg-secondary w-fit p-1 md:p-5 md:text-4xl rounded-sm md:rounded-xl cursor-pointer;
+}
+
 @media (min-width: 768px) {
+  .header-container {
+    background-image: url("../src/assets/header.png");
+  }
+
   .expectativa h1 {
     font-size: 3rem;
   }
@@ -198,4 +213,77 @@ main {
     height: 16rem;
     background-image: url("../src/assets/VentanasAbiertas.png");
   }
+}
+
+/* Contenedor principal del carrusel */
+.event-carousel {
+  height: 50dvh; /* Altura del carrusel */
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.event-carousel button {
+  font-family: "Selecta";
+}
+
+/* Estilo de cada tarjeta (slide) */
+.event-carousel .swiper-slide {
+  width: 65%; /* Ancho de la tarjeta activa */
+  height: 100%; /* Altura de la tarjeta activa */
+  transition: opacity 0.3s ease;
+}
+
+/* Hacer que las tarjetas inactivas (laterales) sean un poco más opacas */
+.event-carousel .swiper-slide:not(.swiper-slide-active) {
+  opacity: 0.5;
+}
+
+/* --- Flechas de Navegación Personalizadas --- */
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: rgba(255, 255, 255, 0.3); /* Fondo semitransparente */
+  padding: 0.8rem;
+  color: white;
+  width: 3rem; /* 40px */
+  height: 3rem; /* 40px */
+  border-radius: 10px; /* Círculo completo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 1s ease;
+  position: absolute;
+}
+
+/* Ocultar las flechas por defecto de Swiper */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  content: "";
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Posición de las flechas (Swiper las controla con `absolute`) */
+.swiper-button-prev {
+  left: -5%; /* Ajusta para que sobresalgan un poco */
+}
+.swiper-button-next {
+  right: -5%; /* Ajusta para que sobresalgan un poco */
+}
+
+/* --- Barra de Progreso Personalizada --- */
+.swiper-pagination.swiper-pagination-progressbar {
+  background: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  bottom: 0 !important;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100% !important;
+  max-width: 70%;
+}
+
+.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background: white; /* Color de la barra de progreso activa */
 }
