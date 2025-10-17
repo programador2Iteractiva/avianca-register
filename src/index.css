@@ -295,6 +295,7 @@ main {
     0 10px 22px rgba(0, 0, 0, 0.28),     /* sombra marcada inferior */
     inset 0 8px 10px rgba(255, 255, 255, 0.35); /* brillo superior curvo */
   position: relative;
+  font-family: "P22Mackinac";
 }
 
 /* separadores finos como en la imagen */
@@ -303,7 +304,7 @@ main {
   width: 1px;
   height: 22px;
   margin: 0 10px;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgb(0, 0, 0);
   transform: translateY(1px);
 }
 

@@ -78,15 +78,15 @@ function Navbar() {
         }`}
         aria-hidden={!isOpen}
       >
-        <div className="px-3 md:px-6">
+        <div className="">
           {/* contenedor sombra y bordes exactos */}
-          <nav className="desktop-band mx-auto max-w-[1080px] h-12 mt-[6px] rounded-[12px] overflow-hidden">
+          <nav className="desktop-band  h-12 overflow-hidden">
             <ul className="h-full w-full flex items-center justify-center">
               {links.map((link, idx) => (
                 <li key={link.id} className="flex items-center">
                   <a
                     href={link.href}
-                    className="desktop-link px-3 py-2 text-[15px]"
+                    className="desktop-link px-3 py-2 text-3xl"
                   >
                     {link.name}
                   </a>
