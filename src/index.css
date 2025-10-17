@@ -133,6 +133,7 @@ footer {
 }
 
 main {
+  max-width: 1200px;
   @apply w-full flex-1 flex flex-col items-center text-start md:text-center  gap-6 px-4;
 }
 
@@ -150,7 +151,7 @@ main {
 }
 
 .view-container h2 {
-  @apply text-4xl md:text-7xl text-center mb-5
+  @apply text-4xl md:text-7xl mb-5
 }
 
 .header-container {
@@ -158,22 +159,22 @@ main {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  min-height: 80dvh;
-  max-height: 90dvh;
+  min-height: 70dvh;
+  max-height: 70dvh;
 
   @apply w-full m-5 rounded-2xl md:rounded-4xl text-white flex p-5;
 }
 
 .header-container h1 {
-  @apply leading-8 md:leading-16 text-3xl md:text-7xl;
+  @apply leading-8 md:leading-16 text-3xl md:text-5xl;
 }
 
 .header-container h3 {
-  @apply leading-4 md:leading-6 text-start text-sm md:text-2xl;
+  @apply leading-4 md:leading-6 text-start text-sm md:text-xl;
 }
 
 .header-container p {
-  @apply leading-4 md:leading-5 text-start text-[0.6rem] md:text-[1rem] text-white/70 md:text-white;
+  @apply leading-4 md:leading-5 text-start text-[0.6rem] md:text-[0.8rem] text-white/70 md:text-white;
 }
 
 .header-container button {
@@ -251,8 +252,60 @@ main {
   background: white;
 }
 
+.experiencias-image {
+  /* Imagen de fondo */
+  background-image: url("../src/assets/experiencia.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  /* Tamaño y forma */
+  width: 100%;
+  border-radius: 1rem;
+
+  aspect-ratio: 16 / 8;
+  max-height: 80vh; /* por seguridad, nunca más alto que la ventana */
+}
+
+.conexion button {
+  font-family: "P22Mackinac";
+}
+
+.como-llegar iframe {
+  width: 100%;
+  border: 0;
+  border-radius: 1rem;
+}
+
+.como-llegar .info-card {
+  background-color: #7a0d0d;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.como-llegar h3{
+  font-family: "P22Mackinac";
+}
+
 
 @media (min-width: 768px) {
+
+  .como-llegar .info-card {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 18rem;
+  }
+
+  .experiencias-image {
+    aspect-ratio: auto;
+    height: 70vh;        /* ajusta 60–75vh según tu diseño */
+    max-height: 80vh;
+    border-radius: 2rem; /* equivalente a md:rounded-4xl */
+  }
+
   .header-container {
     background-image: url("../src/assets/header.png");
   }

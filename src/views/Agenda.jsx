@@ -33,13 +33,9 @@ function Agenda() {
               effect={"coverflow"}
               grabCursor={true}
               centeredSlides={true}
-              loop={true}
+              loop={false}
               slidesPerView={"auto"}
-              speed={1200} // Velocidad de la animación
-              autoplay={{
-                delay: 2500, // Tiempo entre cada slide
-                disableOnInteraction: false, // Que no se detenga al hacer click
-              }}
+              speed={1200}
               coverflowEffect={{
                 rotate: 0,
                 stretch: 80,

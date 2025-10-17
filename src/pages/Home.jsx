@@ -2,6 +2,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Header from "../views/Header";
 import Agenda from "../views/Agenda";
+import Experiencias from "../views/Experiencias";
+import Conexion from "../views/Conexion";
+import Mapa from "../views/Mapa";
 
 function Home() {
   return (
@@ -10,6 +13,9 @@ function Home() {
       <main>
         <Header />
         <Agenda />
+        <Experiencias />
+        <Conexion />
+        <Mapa />
       </main>
       <Footer />
     </div>
