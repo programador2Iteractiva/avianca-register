@@ -21,7 +21,7 @@ function Home() {
         <Mapa />
         {/* <EventPopUp /> */}
         {/* <ConfirmPopUP /> */}
-        <ExitModal />
+        {/* <ExitModal /> */}
       </main>
       <Footer />
     </div>
