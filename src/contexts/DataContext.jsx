@@ -1,134 +1,103 @@
-// src/contexts/DataContext.jsx
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
-// URL base de tu API
 const BASE_URL = 'https://admin.latinoamericanaesavianca.com';
-
-// 1. Crear el Contexto
 const DataContext = createContext();
 
-// 2. Crear el Proveedor de Datos
 export const DataProvider = ({ children }) => {
-  // --- Estado de Banners ---
+  // --- Estados existentes ---
   const [banners, setBanners] = useState([]);
   const [loadingBanners, setLoadingBanners] = useState(true);
   const [errorBanners, setErrorBanners] = useState(null);
 
-  // --- Estado de FAQs (Experiencias) ---
   const [faqs, setFaqs] = useState([]);
   const [loadingFaqs, setLoadingFaqs] = useState(true);
   const [errorFaqs, setErrorFaqs] = useState(null);
 
-  // --- NUEVO: Estado de Events (Agenda) ---
   const [events, setEvents] = useState([]);
   const [loadingEvents, setLoadingEvents] = useState(true);
   const [errorEvents, setErrorEvents] = useState(null);
 
-  // Efecto para cargar toda la data inicial
+  // --- NUEVO: Estado y lógica para Reservas ---
+  const [reservationStatus, setReservationStatus] = useState({
+    loading: false,
+    error: null,
+    successData: null,
+  });
+
+  // Función para crear una reserva
+  const createReservation = async (reservationData) => {
+    setReservationStatus({ loading: true, error: null, successData: null });
+    try {
+      const config = {
+        method: 'post',
+        url: `${BASE_URL}/api/reservations/`,
+        headers: { 'Content-Type': 'application/json' },
+        data: JSON.stringify(reservationData),
+      };
+      const response = await axios.request(config);
+
+      if (response.data && !response.data.errors) {
+        setReservationStatus({ loading: false, error: null, successData: response.data.data });
+        return response.data.data; // Devuelve los datos en caso de éxito
+      } else {
+        throw new Error(response.data.message || 'Ocurrió un error al crear la reserva.');
+      }
+    } catch (error) {
+      console.error('Error creating reservation:', error);
+      const errorMessage = error.response?.data?.message || error.message || 'Error de red o servidor.';
+      setReservationStatus({ loading: false, error: errorMessage, successData: null });
+      throw new Error(errorMessage);
+    }
+  };
+  
+  // Función para limpiar el estado de la reserva (útil al cerrar popups)
+  const clearReservationStatus = () => {
+    setReservationStatus({ loading: false, error: null, successData: null });
+  };
+
+
+  // --- Efecto para cargar datos iniciales ---
   useEffect(() => {
-    // --- Función para cargar Banners ---
-    const fetchBanners = async () => {
-      setLoadingBanners(true);
-      setErrorBanners(null);
+    const fetchAllData = async () => {
+      // Banners
       try {
-        const config = { method: 'get', url: `${BASE_URL}/api/banners/` };
-        const response = await axios.request(config);
-
-        if (response.data && !response.data.errors && response.data.data?.banners) {
-          const processedBanners = response.data.data.banners.map(banner => ({
-            ...banner,
-            image: BASE_URL + banner.image,
-            image_mobile: BASE_URL + banner.image_mobile,
-          }));
-          setBanners(processedBanners);
-        } else {
-          setErrorBanners(response.data.message || 'Error de formato en banners.');
-          setBanners([]);
+        const resBanners = await axios.get(`${BASE_URL}/api/banners/`);
+        if (resBanners.data && !resBanners.data.errors && resBanners.data.data?.banners) {
+          setBanners(resBanners.data.data.banners.map(b => ({ ...b, image: BASE_URL + b.image, image_mobile: BASE_URL + b.image_mobile })));
         }
-      } catch (error) {
-        console.error('Error fetching banners:', error);
-        setErrorBanners(`Error de red: ${error.message}`);
-        setBanners([]);
-      } finally {
-        setLoadingBanners(false);
-      }
-    };
-
-    // --- Función para cargar FAQs (Experiencias) ---
-    const fetchFaqs = async () => {
-      setLoadingFaqs(true);
-      setErrorFaqs(null);
+      } catch (e) { setErrorBanners(e.message); } 
+      finally { setLoadingBanners(false); }
+      
+      // FAQs
       try {
-        const config = { method: 'get', url: `${BASE_URL}/api/faqs/` };
-        const response = await axios.request(config);
-
-        if (response.data && !response.data.errors && response.data.data?.questions) {
-          const processedFaqs = response.data.data.questions.map(faq => ({
-            ...faq,
-            image: BASE_URL + faq.image,
-          }));
-          setFaqs(processedFaqs);
-        } else {
-          setErrorFaqs(response.data.message || 'Error de formato en FAQs.');
-          setFaqs([]);
+        const resFaqs = await axios.get(`${BASE_URL}/api/faqs/`);
+        if (resFaqs.data && !resFaqs.data.errors && resFaqs.data.data?.questions) {
+          setFaqs(resFaqs.data.data.questions.map(f => ({ ...f, image: BASE_URL + f.image })));
         }
-      } catch (error) {
-        console.error('Error fetching FAQs:', error);
-        setErrorFaqs(`Error de red: ${error.message}`);
-        setFaqs([]);
-      } finally {
-        setLoadingFaqs(false);
-      }
-    };
+      } catch(e) { setErrorFaqs(e.message); }
+      finally { setLoadingFaqs(false); }
 
-    // --- NUEVA: Función para cargar Events (Agenda) ---
-    const fetchEvents = async () => {
-      setLoadingEvents(true);
-      setErrorEvents(null);
+      // Events
       try {
-        const config = { method: 'get', url: `${BASE_URL}/api/events/` };
-        const response = await axios.request(config);
-        
-        if (response.data && !response.data.errors && response.data.data?.events) {
-          // Procesar Events con la URL completa
-          const processedEvents = response.data.data.events.map(event => ({
-            ...event,
-            image: BASE_URL + event.image,
-            image_mail: BASE_URL + event.image_mail,
-          }));
-          setEvents(processedEvents);
-        } else {
-          setErrorEvents(response.data.message || 'Error de formato en Events.');
-          setEvents([]);
+        const resEvents = await axios.get(`${BASE_URL}/api/events/`);
+        if (resEvents.data && !resEvents.data.errors && resEvents.data.data?.events) {
+          setEvents(resEvents.data.data.events.map(e => ({ ...e, image: BASE_URL + e.image, image_mail: BASE_URL + e.image_mail })));
         }
-      } catch (error) {
-        console.error('Error fetching Events:', error);
-        setErrorEvents(`Error de red: ${error.message}`);
-        setEvents([]);
-      } finally {
-        setLoadingEvents(false);
-      }
+      } catch(e) { setErrorEvents(e.message); }
+      finally { setLoadingEvents(false); }
     };
+    
+    fetchAllData();
+  }, []);
 
-    // Llamar a todas las funciones de carga
-    fetchBanners();
-    fetchFaqs();
-    fetchEvents(); // <- NUEVA LLAMADA
-
-  }, []); // Carga solo una vez
-
-  // 3. Valor general a proveer
   const value = {
-    banners,
-    loadingBanners,
-    errorBanners,
-    faqs,
-    loadingFaqs,
-    errorFaqs,
-    events, // <- NUEVO
-    loadingEvents, // <- NUEVO
-    errorEvents, // <- NUEVO
+    banners, loadingBanners, errorBanners,
+    faqs, loadingFaqs, errorFaqs,
+    events, loadingEvents, errorEvents,
+    createReservation, // <- NUEVO
+    reservationStatus, // <- NUEVO
+    clearReservationStatus, // <- NUEVO
   };
 
   return (
@@ -138,11 +107,10 @@ export const DataProvider = ({ children }) => {
   );
 };
 
-// 4. Hook personalizado para consumir el contexto general
 export const useData = () => {
   const context = useContext(DataContext);
   if (context === undefined) {
-    throw new Error('useData debe ser usado dentro de un DataProvider');
+    throw new Error('useData must be used within a DataProvider');
   }
   return context;
 };

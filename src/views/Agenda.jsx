@@ -1,9 +1,6 @@
-// src/views/Agenda.jsx
-
 // Importa los componentes y módulos de Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Pagination, Navigation, Autoplay } from "swiper/modules";
-// import afterOfficeImg from "../assets/header.png"; // <- Ya no se necesita
 
 // Importa los estilos de Swiper
 import "swiper/css";
@@ -14,15 +11,14 @@ import "swiper/css/navigation";
 // Importa íconos para las flechas
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-// 1. IMPORTAR EL HOOK
+// 1. IMPORTAR EL HOOK y React
 import { useData } from "../contexts/DataContext";
-import React from "react"; // Asegúrate de que React esté importado
+import React from "react";
 
-function Agenda() {
-  // 2. CONSUMIR DATOS DEL CONTEXTO
+// 2. ACEPTAR PROP para manejar el click
+function Agenda({ onReserveClick }) {
   const { events, loadingEvents, errorEvents } = useData();
 
-  // 3. MANEJAR ESTADO DE CARGA
   if (loadingEvents) {
     return (
       <div className="view-container agenta">
@@ -34,7 +30,6 @@ function Agenda() {
     );
   }
 
-  // 4. MANEJAR ESTADO DE ERROR
   if (errorEvents) {
     return (
       <div className="view-container agenta">
@@ -45,16 +40,11 @@ function Agenda() {
       </div>
     );
   }
-
-  // 5. FILTRAR EVENTOS
-  // (Opcional, pero buena práctica: filtra los que tengan al menos un horario)
-  // En tu caso, la API parece no tener un flag `is_active`, así que usaremos todos.
-  // Si necesitas filtrarlos, este es el lugar.
+  
   const activeEvents = events.sort((a, b) => a.order - b.order);
 
-
   return (
-    <div className="view-container agenta">
+    <div id="reservas" className="view-container agenta">
       <h2>Agenda tu visita</h2>
       <div className="w-full flex flex-1 bg-[#5e0000] py-12 px-4 rounded-xl">
         <div className="relative max-w-4/5 mx-auto">
@@ -85,22 +75,24 @@ function Agenda() {
               modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
               className="event-carousel"
             >
-              {/* 6. MAPEAR SOBRE LOS DATOS DINÁMICOS (activeEvents) */}
               {activeEvents.map((event) => (
                 <SwiperSlide key={event.id}>
                   <div className="relative w-full h-full text-white rounded-lg overflow-hidden">
                     <img
-                      src={event.image} // <- DATO DINÁMICO
-                      alt={event.title} // <- DATO DINÁMICO
+                      src={event.image}
+                      alt={event.title}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black to-80% bg-opacity-40 flex flex-col justify-end items-start p-6 text-start">
-                      <h3 className="text-4xl">{event.title}</h3> {/* <- DATO DINÁMICO */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black to-80% flex flex-col justify-end items-start p-6">
+                      <h3 className="text-4xl">{event.title}</h3>
                       <p className="mt-1 text-sm">
-                        {/* Usamos subtítulo, y si no existe, la descripción */}
-                        {event.subtitle || event.description} {/* <- DATO DINÁMICO */}
+                        {event.subtitle || event.description}
                       </p>
-                      <button className="mt-4 text-secondary border-1 rounded-lg border-secondary w-fit font-semibold px-8 py-2">
+                      {/* 3. LLAMAR A onReserveClick con el evento actual */}
+                      <button 
+                        onClick={() => onReserveClick(event)}
+                        className="mt-4 text-secondary border-1 rounded-lg border-secondary w-fit font-semibold px-8 py-2"
+                      >
                         Reserva aquí
                       </button>
                     </div>
