@@ -15,14 +15,14 @@ export const DataProvider = ({ children }) => {
   const [loadingBanners, setLoadingBanners] = useState(true);
   const [errorBanners, setErrorBanners] = useState(null);
 
-  // --- (Aquí puedes añadir más estados para otra data) ---
-  // const [agenda, setAgenda] = useState([]);
-  // const [loadingAgenda, setLoadingAgenda] = useState(true);
-  // const [errorAgenda, setErrorAgenda] = useState(null);
+  // --- NUEVO: Estado de FAQs (Experiencias) ---
+  const [faqs, setFaqs] = useState([]);
+  const [loadingFaqs, setLoadingFaqs] = useState(true);
+  const [errorFaqs, setErrorFaqs] = useState(null);
 
   // Efecto para cargar toda la data inicial
   useEffect(() => {
-    // Función para cargar Banners
+    // --- Función para cargar Banners ---
     const fetchBanners = async () => {
       setLoadingBanners(true);
       setErrorBanners(null);
@@ -34,7 +34,6 @@ export const DataProvider = ({ children }) => {
         const response = await axios.request(config);
 
         if (response.data && !response.data.errors && response.data.data?.banners) {
-          // Procesar banners con la URL completa
           const processedBanners = response.data.data.banners.map(banner => ({
             ...banner,
             image: BASE_URL + banner.image,
@@ -54,23 +53,51 @@ export const DataProvider = ({ children }) => {
       }
     };
 
-    // --- (Aquí puedes llamar a más funciones de fetch) ---
-    // const fetchAgenda = async () => { ... };
+    // --- NUEVA: Función para cargar FAQs (Experiencias) ---
+    const fetchFaqs = async () => {
+      setLoadingFaqs(true);
+      setErrorFaqs(null);
+      try {
+        const config = {
+          method: 'get',
+          url: `${BASE_URL}/api/faqs/`,
+        };
+        const response = await axios.request(config);
+
+        if (response.data && !response.data.errors && response.data.data?.questions) {
+          // Procesar FAQs con la URL completa
+          const processedFaqs = response.data.data.questions.map(faq => ({
+            ...faq,
+            image: BASE_URL + faq.image,
+          }));
+          setFaqs(processedFaqs);
+        } else {
+          setErrorFaqs(response.data.message || 'Error de formato en FAQs.');
+          setFaqs([]);
+        }
+      } catch (error) {
+        console.error('Error fetching FAQs:', error);
+        setErrorFaqs(`Error de red: ${error.message}`);
+        setFaqs([]);
+      } finally {
+        setLoadingFaqs(false);
+      }
+    };
 
     // Llamar a todas las funciones de carga
     fetchBanners();
-    // fetchAgenda();
+    fetchFaqs(); // <- NUEVA LLAMADA
 
-  }, []); // Carga solo una vez al montar la app
+  }, []); // Carga solo una vez
 
   // 3. Valor general a proveer
   const value = {
     banners,
     loadingBanners,
     errorBanners,
-    // ...agenda,
-    // ...loadingAgenda,
-    // ...errorAgenda,
+    faqs, // <- NUEVO
+    loadingFaqs, // <- NUEVO
+    errorFaqs, // <- NUEVO
   };
 
   return (
