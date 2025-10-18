@@ -11,28 +11,29 @@ import ConfirmPopUP from "../views/ConfirmPopUP";
 import ExitModal from "../views/ExitModal";
 
 function Home() {
-  // Estado para controlar qué evento se muestra en el popup
+  // Estados para los popups de eventos
   const [selectedEvent, setSelectedEvent] = useState(null);
-  
-  // Estado para mostrar la confirmación después de una reserva exitosa
   const [confirmationData, setConfirmationData] = useState(null);
 
-  // Función para abrir el popup de un evento específico
+  // --- NUEVO: Estado para controlar el ExitModal ---
+  const [isExitModalOpen, setIsExitModalOpen] = useState(false);
+
+  // Funciones para popups de eventos
   const handleReserveClick = (event) => {
     setSelectedEvent(event);
   };
-
-  // Función para cerrar cualquier popup y limpiar estados
   const handleClosePopups = () => {
     setSelectedEvent(null);
     setConfirmationData(null);
   };
-
-  // Función que se llama cuando una reserva es exitosa
   const handleReservationSuccess = (reservationDetails) => {
-    setSelectedEvent(null); // Cierra el popup del formulario
-    setConfirmationData(reservationDetails); // Abre el popup de confirmación
+    setSelectedEvent(null);
+    setConfirmationData(reservationDetails);
   };
+
+  // --- NUEVO: Funciones para abrir y cerrar el ExitModal ---
+  const handleOpenExitModal = () => setIsExitModalOpen(true);
+  const handleCloseExitModal = () => setIsExitModalOpen(false);
 
 
   return (
@@ -40,13 +41,13 @@ function Home() {
       <Navbar />
       <main>
         <Header />
-        {/* Pasamos la función para abrir el popup a la Agenda */}
         <Agenda onReserveClick={handleReserveClick} />
         <Experiencias />
-        <Conexion />
+        {/* Pasamos la función para abrir el ExitModal a Conexion */}
+        <Conexion onOpenExitModal={handleOpenExitModal} />
         <Mapa />
         
-        {/* Renderizado condicional del popup del evento */}
+        {/* Popups de eventos (sin cambios) */}
         {selectedEvent && (
           <EventPopUp 
             event={selectedEvent} 
@@ -54,20 +55,24 @@ function Home() {
             onSuccess={handleReservationSuccess} 
           />
         )}
-        
-        {/* Renderizado condicional del popup de confirmación */}
         {confirmationData && (
           <ConfirmPopUP
             open={true}
             onClose={handleClosePopups}
             eventTitle={confirmationData.event.title}
-            dateTop={confirmationData.formattedDate.day} // Viernes
-            dateBottom={confirmationData.formattedDate.date} // 31 de octubre
-            timeText={confirmationData.formattedDate.time} // 19:00 - 19:45
+            dateTop={confirmationData.formattedDate.day}
+            dateBottom={confirmationData.formattedDate.date}
+            timeText={confirmationData.formattedDate.time}
           />
         )}
         
-        {/* <ExitModal /> */}
+        {/* --- NUEVO: Renderizado condicional del ExitModal --- */}
+        {isExitModalOpen && (
+          <ExitModal 
+            open={isExitModalOpen} 
+            onClose={handleCloseExitModal} 
+          />
+        )}
       </main>
       <Footer />
     </div>
@@ -75,3 +80,4 @@ function Home() {
 }
 
 export default Home;
+

@@ -1,13 +1,13 @@
 import React from "react";
 
-import comidaAvianca from "../assets/comida.png"; // Imagen grande de la izquierda
-import amenityKit from "../assets/neceser.png"; // Imagen pequeña de arriba a la derecha
-import insigniaLogo from "../assets/insignia.png"; // Logo de Insignia
+import comidaAvianca from "../assets/comida.png";
+import amenityKit from "../assets/neceser.png";
+import insigniaLogo from "../assets/insignia.png";
 
-function Conexion() {
+// 1. Acepta el prop "onOpenExitModal" que le pasas desde Home.jsx
+function Conexion({ onOpenExitModal }) {
   return (
     <section className="py-10 conexion">
-      {/* El contenedor `md:flex-row` asegura que ambas columnas tengan la misma altura en desktop */}
       <div className="flex flex-col md:flex-row gap-10">
         
         {/* === Columna Izquierda (Imagen Grande) === */}
@@ -15,19 +15,15 @@ function Conexion() {
           <img
             src={comidaAvianca}
             alt="Bandeja con comida gourmet servida en un asiento de avión"
-            // CLAVE: Se elimina la altura fija (h-[80dvh]) y se usa `h-full`.
-            // Ahora la imagen ocupará el 100% de la altura que su columna adquiera.
             className="w-full h-[300px] md:h-full object-cover rounded-3xl"
           />
         </div>
 
         {/* === Columna Derecha (Contenido) === */}
-        {/* CLAVE: `justify-between` distribuye el espacio. Empuja la imagen pequeña
-            hacia arriba y el bloque de texto hacia abajo, llenando toda la altura. */}
         <div className="md:w-1/2 w-full flex flex-col justify-between gap-10 md:pl-10">
           
           {/* Fila 1: Imagen Pequeña */}
-          <div> {/* Contenedor simple para la imagen */}
+          <div>
             <img
               src={amenityKit}
               alt="Pasajero recibiendo un kit de bienvenida en su asiento"
@@ -47,7 +43,11 @@ function Conexion() {
               <br /><br />
               Aquí, viajar se siente diferente: más cómodo, más cercano y diseñado para ti.
             </p>
-            <button className="bg-[#5e0000] text-white py-3 px-6 rounded-md hover:bg-[#4a0000] transition-colors duration-300 text-xl ">
+            {/* 2. Añade el evento onClick al botón para llamar a la función del prop */}
+            <button 
+              onClick={onOpenExitModal}
+              className="bg-[#5e0000] text-white py-3 px-6 rounded-md hover:bg-[#4a0000] transition-colors duration-300 text-xl "
+            >
               Conocer más sobre INSIGNIA
             </button>
           </div>
@@ -59,3 +59,4 @@ function Conexion() {
 }
 
 export default Conexion;
+
