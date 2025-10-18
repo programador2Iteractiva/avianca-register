@@ -15,10 +15,15 @@ export const DataProvider = ({ children }) => {
   const [loadingBanners, setLoadingBanners] = useState(true);
   const [errorBanners, setErrorBanners] = useState(null);
 
-  // --- NUEVO: Estado de FAQs (Experiencias) ---
+  // --- Estado de FAQs (Experiencias) ---
   const [faqs, setFaqs] = useState([]);
   const [loadingFaqs, setLoadingFaqs] = useState(true);
   const [errorFaqs, setErrorFaqs] = useState(null);
+
+  // --- NUEVO: Estado de Events (Agenda) ---
+  const [events, setEvents] = useState([]);
+  const [loadingEvents, setLoadingEvents] = useState(true);
+  const [errorEvents, setErrorEvents] = useState(null);
 
   // Efecto para cargar toda la data inicial
   useEffect(() => {
@@ -27,10 +32,7 @@ export const DataProvider = ({ children }) => {
       setLoadingBanners(true);
       setErrorBanners(null);
       try {
-        const config = {
-          method: 'get',
-          url: `${BASE_URL}/api/banners/`,
-        };
+        const config = { method: 'get', url: `${BASE_URL}/api/banners/` };
         const response = await axios.request(config);
 
         if (response.data && !response.data.errors && response.data.data?.banners) {
@@ -53,19 +55,15 @@ export const DataProvider = ({ children }) => {
       }
     };
 
-    // --- NUEVA: Función para cargar FAQs (Experiencias) ---
+    // --- Función para cargar FAQs (Experiencias) ---
     const fetchFaqs = async () => {
       setLoadingFaqs(true);
       setErrorFaqs(null);
       try {
-        const config = {
-          method: 'get',
-          url: `${BASE_URL}/api/faqs/`,
-        };
+        const config = { method: 'get', url: `${BASE_URL}/api/faqs/` };
         const response = await axios.request(config);
 
         if (response.data && !response.data.errors && response.data.data?.questions) {
-          // Procesar FAQs con la URL completa
           const processedFaqs = response.data.data.questions.map(faq => ({
             ...faq,
             image: BASE_URL + faq.image,
@@ -84,9 +82,39 @@ export const DataProvider = ({ children }) => {
       }
     };
 
+    // --- NUEVA: Función para cargar Events (Agenda) ---
+    const fetchEvents = async () => {
+      setLoadingEvents(true);
+      setErrorEvents(null);
+      try {
+        const config = { method: 'get', url: `${BASE_URL}/api/events/` };
+        const response = await axios.request(config);
+        
+        if (response.data && !response.data.errors && response.data.data?.events) {
+          // Procesar Events con la URL completa
+          const processedEvents = response.data.data.events.map(event => ({
+            ...event,
+            image: BASE_URL + event.image,
+            image_mail: BASE_URL + event.image_mail,
+          }));
+          setEvents(processedEvents);
+        } else {
+          setErrorEvents(response.data.message || 'Error de formato en Events.');
+          setEvents([]);
+        }
+      } catch (error) {
+        console.error('Error fetching Events:', error);
+        setErrorEvents(`Error de red: ${error.message}`);
+        setEvents([]);
+      } finally {
+        setLoadingEvents(false);
+      }
+    };
+
     // Llamar a todas las funciones de carga
     fetchBanners();
-    fetchFaqs(); // <- NUEVA LLAMADA
+    fetchFaqs();
+    fetchEvents(); // <- NUEVA LLAMADA
 
   }, []); // Carga solo una vez
 
@@ -95,9 +123,12 @@ export const DataProvider = ({ children }) => {
     banners,
     loadingBanners,
     errorBanners,
-    faqs, // <- NUEVO
-    loadingFaqs, // <- NUEVO
-    errorFaqs, // <- NUEVO
+    faqs,
+    loadingFaqs,
+    errorFaqs,
+    events, // <- NUEVO
+    loadingEvents, // <- NUEVO
+    errorEvents, // <- NUEVO
   };
 
   return (
