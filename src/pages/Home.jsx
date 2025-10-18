@@ -5,6 +5,9 @@ import Agenda from "../views/Agenda";
 import Experiencias from "../views/Experiencias";
 import Conexion from "../views/Conexion";
 import Mapa from "../views/Mapa";
+import EventPopUp from "../views/eventPopUp";
+import ConfirmPopUP from "../views/ConfirmPopUP";
+import ExitModal from "../views/ExitModal";
 
 function Home() {
   return (
@@ -16,6 +19,9 @@ function Home() {
         <Experiencias />
         <Conexion />
         <Mapa />
+        {/* <EventPopUp /> */}
+        {/* <ConfirmPopUP /> */}
+        <ExitModal />
       </main>
       <Footer />
     </div>

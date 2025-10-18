@@ -31,51 +31,54 @@ function Navbar() {
   return (
     <header className="navbar-root fixed top-0 left-0 w-full z-[60]">
       {/* Barra roja superior */}
-      <div className="w-full h-12 md:h-14 bg-[#7a0d0d] text-white px-4 md:px-6 flex items-center justify-between">
-        <img
-          src={logos}
-          alt="Logos de Avianca y colaboradores"
-          className="w-[10.75rem] md:w-[17rem] select-none"
-        />
+      <div className="relative w-full h-12 md:h-14 bg-[#7a0d0d] text-white px-4 md:px-6 flex items-center justify-between">
+        <div className="w-full flex justify-center ">
+          <img
+            src={logos}
+            alt="Logos de Avianca y colaboradores"
+            className="w-[10.75rem] md:w-[25rem] select-none"
+          />
+        </div>
 
         {/* botón desktop (X/☰) alineado a la derecha como en el mock */}
-        <button
-          type="button"
-          className="hidden md:flex items-center justify-center"
-          onClick={() => setIsOpen((p) => !p)}
-          aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
-          title={isOpen ? "Cerrar menú" : "Abrir menú"}
-        >
-          {isOpen ? (
-            <IoCloseSharp className="w-6 h-6" />
-          ) : (
-            <IoMenu className="w-6 h-6" />
-          )}
-        </button>
+        <div className="absolute right-10">
+          <button
+            type="button"
+            className="hidden md:flex items-center justify-center"
+            onClick={() => setIsOpen((p) => !p)}
+            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+            title={isOpen ? "Cerrar menú" : "Abrir menú"}
+          >
+            {isOpen ? (
+              <IoCloseSharp className="w-6 h-6" />
+            ) : (
+              <IoMenu className="w-6 h-6" />
+            )}
+          </button>
 
-        {/* botón mobile */}
-        <button
-          type="button"
-          className="md:hidden flex items-center justify-center"
-          onClick={() => setIsOpen((p) => !p)}
-          aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
-          title={isOpen ? "Cerrar menú" : "Abrir menú"}
-        >
-          {isOpen ? (
-            <IoCloseSharp className="w-8 h-8" />
-          ) : (
-            <IoMenu className="w-8 h-8" />
-          )}
-        </button>
+          {/* botón mobile */}
+          <button
+            type="button"
+            className="md:hidden flex items-center justify-center"
+            onClick={() => setIsOpen((p) => !p)}
+            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+            title={isOpen ? "Cerrar menú" : "Abrir menú"}
+          >
+            {isOpen ? (
+              <IoCloseSharp className="w-8 h-8" />
+            ) : (
+              <IoMenu className="w-8 h-8" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* --------- DESKTOP: banda beige idéntica al mockup --------- */}
       <div
-        className={`hidden md:block w-full transition-[max-height,opacity,transform] duration-300 ${
-          isOpen
-            ? "max-h-24 opacity-100 translate-y-0"
-            : "max-h-0 opacity-0 -translate-y-2 pointer-events-none"
-        }`}
+        className={`hidden md:block w-full transition-[max-height,opacity,transform] duration-300 ${isOpen
+          ? "max-h-24 opacity-100 translate-y-0"
+          : "max-h-0 opacity-0 -translate-y-2 pointer-events-none"
+          }`}
         aria-hidden={!isOpen}
       >
         <div className="">
@@ -102,9 +105,8 @@ function Navbar() {
 
       {/* --------- MOBILE: overlay + tarjeta beige con líneas --------- */}
       <div
-        className={`md:hidden fixed inset-0 top-12 bg-black/55 backdrop-blur-[1.5px] transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`md:hidden fixed inset-0 top-12 bg-black/55 backdrop-blur-[1.5px] transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
         aria-hidden={!isOpen}
       >
         <div className="w-full h-full flex items-start justify-center pt-4">

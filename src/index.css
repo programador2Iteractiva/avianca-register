@@ -3,14 +3,17 @@
 @font-face {
   font-family: "P22Mackinac";
   src: url("../src/fonts/P22Mackinac-Book.otf") format("opentype");
-  font-weight: 400; /* Regular */
+  font-weight: 400;
+  /* Regular */
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "P22Mackinac";
   src: url("../src/fonts/P22Mackinac-Medium.otf") format("opentype");
-  font-weight: 500; /* Medium */
+  font-weight: 500;
+  /* Medium */
   font-style: normal;
   font-display: swap;
 }
@@ -18,21 +21,26 @@
 @font-face {
   font-family: "RedHatDisplay";
   src: url("../src/fonts/RedHatDisplay-Regular.ttf") format("truetype");
-  font-weight: 400; /* Regular */
+  font-weight: 400;
+  /* Regular */
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "RedHatDisplay";
   src: url("../src/fonts/RedHatDisplay-Bold.ttf") format("truetype");
-  font-weight: 700; /* Bold */
+  font-weight: 700;
+  /* Bold */
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "RedHatDisplay";
   src: url("../src/fonts/RedHatDisplay-Black.ttf") format("truetype");
-  font-weight: 900; /* Black */
+  font-weight: 900;
+  /* Black */
   font-style: normal;
   font-display: swap;
 }
@@ -40,14 +48,17 @@
 @font-face {
   font-family: "Selecta";
   src: url("../src/fonts/Selecta-Light.otf") format("opentype");
-  font-weight: 300; /* Light */
+  font-weight: 300;
+  /* Light */
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Selecta";
   src: url("../src/fonts/Selecta-Regular_2.ttf") format("truetype");
-  font-weight: 400; /* Regular */
+  font-weight: 400;
+  /* Regular */
   font-style: normal;
   font-display: swap;
 }
@@ -134,14 +145,14 @@ footer {
 
 main {
   max-width: 1200px;
-  @apply w-full flex-1 flex flex-col items-center text-start md:text-center  gap-6 px-4;
+  @apply w-full flex-1 flex flex-col items-center text-start md:text-center gap-6 px-4;
 }
 
 .social-icon {
   @apply bg-white p-2 rounded-full flex justify-center items-center;
 }
 
-.social-icon > * {
+.social-icon>* {
   @apply text-blue-avianca;
 }
 
@@ -162,7 +173,7 @@ main {
   min-height: 70dvh;
   max-height: 70dvh;
 
-  @apply w-full m-5 rounded-2xl md:rounded-4xl text-white flex p-5;
+  @apply w-full m-5 mt-[10dvh] rounded-2xl md:rounded-4xl text-white flex p-5;
 }
 
 .header-container h1 {
@@ -233,6 +244,7 @@ main {
 .swiper-button-prev {
   left: -5%;
 }
+
 .swiper-button-next {
   right: -5%;
 }
@@ -264,7 +276,8 @@ main {
   border-radius: 1rem;
 
   aspect-ratio: 16 / 8;
-  max-height: 80vh; /* por seguridad, nunca más alto que la ventana */
+  max-height: 80vh;
+  /* por seguridad, nunca más alto que la ventana */
 }
 
 .conexion button {
@@ -282,18 +295,21 @@ main {
   color: white;
   padding: 1.5rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.como-llegar h3{
+.como-llegar h3 {
   font-family: "P22Mackinac";
 }
 
 .desktop-band {
-  background: #e2d8c7;                   /* beige más cercano al mock */
+  background: #e2d8c7;
+  /* beige más cercano al mock */
   box-shadow:
-    0 10px 22px rgba(0, 0, 0, 0.28),     /* sombra marcada inferior */
-    inset 0 8px 10px rgba(255, 255, 255, 0.35); /* brillo superior curvo */
+    0 10px 22px rgba(0, 0, 0, 0.28),
+    /* sombra marcada inferior */
+    inset 0 8px 10px rgba(255, 255, 255, 0.35);
+  /* brillo superior curvo */
   position: relative;
   font-family: "P22Mackinac";
 }
@@ -317,7 +333,8 @@ main {
 
 /* === Mobile card === */
 .mobile-card {
-  background: rgba(226, 216, 199, 0.92); /* beige translúcido */
+  background: rgba(226, 216, 199, 0.92);
+  /* beige translúcido */
   box-shadow: 0 22px 44px rgba(0, 0, 0, 0.35);
 }
 
@@ -325,8 +342,30 @@ main {
 .mobile-hr {
   height: 1px;
   width: 86%;
-  margin-left: 0;          /* alineadas al texto */
+  margin-left: 0;
+  /* alineadas al texto */
   background: rgba(0, 0, 0, 0.30);
+}
+
+.popup-event .options button {
+  font-family: "P22Mackinac";
+  font-size: larger;
+}
+
+.popup-event h3 {
+  font-family: "P22Mackinac";
+  font-size: larger;
+}
+
+.popup-confirm button {
+  font-family: "P22Mackinac";
+}
+
+
+.popup-exit,
+button {
+  font-family: "P22Mackinac";
+
 }
 
 @media (min-width: 768px) {
@@ -340,9 +379,11 @@ main {
 
   .experiencias-image {
     aspect-ratio: auto;
-    height: 70vh;        /* ajusta 60–75vh según tu diseño */
+    height: 70vh;
+    /* ajusta 60–75vh según tu diseño */
     max-height: 80vh;
-    border-radius: 2rem; /* equivalente a md:rounded-4xl */
+    border-radius: 2rem;
+    /* equivalente a md:rounded-4xl */
   }
 
   .header-container {
@@ -377,4 +418,3 @@ main {
     background-image: url("../src/assets/VentanasAbiertas.png");
   }
 }
-
